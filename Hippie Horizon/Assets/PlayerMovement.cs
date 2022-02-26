@@ -20,11 +20,16 @@ public class PlayerMovement : MonoBehaviour
 
     private int extraJumps;
     public int extraJumpsValue;
+
+    private Vector3 respawnPoint;
+    public GameObject fallDetector;
+
     // Start is called before the first frame update
     void Start()
     {
         extraJumps = extraJumpsValue;
         rb = GetComponent<Rigidbody2D>();
+        respawnPoint = transform.position;
     }
 
     // Update is called once per frame
@@ -64,6 +69,15 @@ public class PlayerMovement : MonoBehaviour
         }
 
     }
+
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.tag == "FallDetector")
+        {
+            transform.position = respawnPoint;
+        }
+    }
+
     void Flip()
     {
 
